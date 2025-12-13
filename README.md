@@ -192,6 +192,38 @@ As can be observed from the graphs below, the mean and median cooking times fluc
 ## Assessment of Missingness
 When I checked the datasets at the beginning for missing values, there was only one column in each dataset that had missing values. The `'Recipes'` dataset had 70 missing values in the `'description'` column and the `'Reviews'` dataset had 169 missing values in the `'review'` column. These missing values only occur in columns that contain textual and descriptive content, which I am not planning on using in my research. Since my prediction is not related to these columns, I have chosen to drop them as I continue working.
 
+### NMAR Analysis
+
+I believe the missingness in the 'review' column is likely Not Missing At Random (NMAR). The decision for a user to omit written review text is likely dependent on the actual, unobserved level of satisfaction or dissatisfaction that is not captured by the provided features. For example:
+- A user might give a perfect rating (5) but choose not to write a review because they were completely satisfied and saw no need for elaboration.
+- Conversely, a user might give a very low rating (1) and omit a review because they were so frustrated they stopped engaging with the system.
+
+This unobserved psychological reason for omitting the text is not present in my dataset, making the missingness NMAR. If I were to obtain additional data, such as a survey asking users why they chose not to write a review, I could potentially convert this to a MAR scenario.
+
+### Missingness Dependency
+To determine if the missingness of the 'review' column is dependent on an observed feature (Rating Extremity), I conducted a permutation test. This test checks if the missingness of the review text is different between recipes with an extreme rating (1 or 5) and those with a mid-range rating (2, 3, or 4).
+
+**Groups**: Extreme Ratings (1 or 5) vs. Mid-Range Ratings (2, 3, or 4).
+**Null Hypothesis**: The probability for a 'review' to be missing is independent of rating extremity.
+**Alternative Hypothesis**: The probability for a 'review' to be missing is dependent on rating extremity.
+**Test Statistic**: Difference in Proportion of Missing Reviews (Extreme Ratings - Mid-Range Ratings).
+**Significance Level**: 0.05
+
+<iframe
+src="assets/missingness_permutation_plot.html"
+width="800"
+height="600"
+frameborder="0"
+></iframe>
+
+**Observed Statistic**: 0.0001 (Prop Missing Extreme: 0.0003, Prop Missing Mid-Range: 0.0002)
+
+**P-value**: 0.38
+
+#### Conclusion
+Since the calculated p-value of 0.38 is greater than the significance level of 0.05, I fail to reject the null hypothesis. I do not have sufficient evidence to conclude that the missingness of the 'review' column is dependent on the rating extremity.
+
+
 ## Hypothesis Testing
 
 The topic of interest for my research is whether healthy and unhealthy recipes take the same or different amounts of time to cook. These values are defined in the `'health_classification'` column, which assigns binary tags to a recipe based on predefined criteria.
