@@ -204,9 +204,13 @@ This unobserved psychological reason for omitting the text is not present in my 
 To determine if the missingness of the 'review' column is dependent on an observed feature (Rating Extremity), I conducted a permutation test. This test checks if the missingness of the review text is different between recipes with an extreme rating (1 or 5) and those with a mid-range rating (2, 3, or 4).
 
 **Groups**: Extreme Ratings (1 or 5) vs. Mid-Range Ratings (2, 3, or 4).
+
 **Null Hypothesis**: The probability for a 'review' to be missing is independent of rating extremity.
+
 **Alternative Hypothesis**: The probability for a 'review' to be missing is dependent on rating extremity.
+
 **Test Statistic**: Difference in Proportion of Missing Reviews (Extreme Ratings - Mid-Range Ratings).
+
 **Significance Level**: 0.05
 
 <iframe
