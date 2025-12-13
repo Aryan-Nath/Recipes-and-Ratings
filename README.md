@@ -8,33 +8,34 @@ Eating healthy is something that everyone should strive to do. But in today's fa
 I am drawing my data for this project from two datasets consisting of recipes and ratings posted to food.com.
 
 The first dataset is the `Recipes` dataset, with 83782 unique recipes and ten columns with the following information:
-| Column                  | Description                                                                                                   |
-|:------------------------|:--------------------------------------------------------------------------------------------------------------|
-| `name`                  | Recipe name                                                                                                   |
-| `id`                    | Recipe ID                                                                                                     |
-| `minutes`               | The number of minutes it takes to make a particular recipe                                                    |
-| `contributor_id`        | Id of the user who posted the recipe                                                                          |
-| `submitted`             | Date a recipe was submitted                                                                                   |
-| `tags`                  | Food.com's tags for a recipe                                                                                  |
-| `nutrition`             | Nutrition information in the form [calories, total fat, sugar, sodium, protein, saturated fat, carbohydrates] |
-| `n_steps`               | Number of steps in recipe                                                                                     |
-| `steps`                 | The written steps to make a particular recipe                                                                 |
-| `description`           | User-provided description                                                                                     |
-| `ingredients`           | Text for recipe ingredients                                                                                   |
-| `n_ingredients`         | Number of ingredients in recipe                                                                               |
-| `user_id`               | User ID (from reviews)                                                                                        |
-| `recipe_id`             | Recipe ID (from reviews)                                                                                      |
-| `date`                  | Date review was posted                                                                                        |
-| `rating`                | Rating given                                                                                                  |
-| `review`                | Review text                                                                                                   |
-| `calories`              | Calories (derived)                                                                                            |
-| `total fat`             | Total Fat (derived)                                                                                           |
-| `sugar`                 | Sugar (derived)                                                                                               |
-| `sodium`                | Sodium (derived)                                                                                              |
-| `protein`               | Protein (derived)                                                                                             |
-| `saturated fat`         | Saturated Fat (derived)                                                                                       |
-| `carbohydrates`         | Carbohydrates (derived)                                                                                       |
-| `health_classification` | Health classification (derived)                                                                               |
+
+| Column                | Description                                                                                                   |
+|:----------------------|:--------------------------------------------------------------------------------------------------------------|
+| name                  | Recipe name                                                                                                   |
+| id                    | Recipe ID                                                                                                     |
+| minutes               | The number of minutes it takes to make a particular recipe                                                    |
+| contributor_id        | Id of the user who posted the recipe                                                                          |
+| submitted             | Date a recipe was submitted                                                                                   |
+| tags                  | Food.com's tags for a recipe                                                                                  |
+| nutrition             | Nutrition information in the form [calories, total fat, sugar, sodium, protein, saturated fat, carbohydrates] |
+| n_steps               | Number of steps in recipe                                                                                     |
+| steps                 | The written steps to make a particular recipe                                                                 |
+| description           | User-provided description                                                                                     |
+| ingredients           | Text for recipe ingredients                                                                                   |
+| n_ingredients         | Number of ingredients in recipe                                                                               |
+| user_id               | User ID                                                                                                       |
+| recipe_id             | Recipe ID                                                                                                     |
+| date                  | Date review was posted                                                                                        |
+| rating                | Rating given                                                                                                  |
+| review                | Review text                                                                                                   |
+| calories              | Calories                                                                                                      |
+| total fat             | Total Fat                                                                                                     |
+| sugar                 | Sugar                                                                                                         |
+| sodium                | Sodium                                                                                                        |
+| protein               | Protein                                                                                                       |
+| saturated fat         | Saturated Fat                                                                                                 |
+| carbohydrates         | Carbohydrates                                                                                                 |
+| health_classification | Health classification                                                                                         |
 
 The second dataset is the `Reviews` dataset, with 731927 rows and each row contains a review from the user on a specific recipe. The columns it includes are:
 
@@ -83,6 +84,7 @@ I also added a column to the dataframe called `'Health_Classification'`, which c
  - If a particular recipe had received a score of 1 in 4 or more nutrient columns, it was assigned a tag of `'Unhealthy'`. If it had a score of 3 or less, it was assigned a tag of `'Healthy'`. I chose this metric as I felt it adequately assessed the content of a recipe based on a simple metric a particular recipe's nutritional content compared to other recipes in the dataset.
 
 #### Processed Dataset
+
 | Column                  | Dtype          |
 |:------------------------|:---------------|
 | `name`                  | object         |
@@ -112,6 +114,7 @@ I also added a column to the dataframe called `'Health_Classification'`, which c
 | `health_classification` | bool           |
 
 The final cleaned dataframe has 78906 rows and 21 columns. Here are the first five rows of the cleaned dataframe with the columns that I felt contained relevant content (since the dataframe has a large number of columns it was not possible to include them all for display).
+
 |    | name                                 |     id |   minutes |   n_steps |   n_ingredients |   calories |   protein |   total fat | health_classification   |
 |---:|:-------------------------------------|-------:|----------:|----------:|----------------:|-----------:|----------:|------------:|:------------------------|
 |  0 | 1 brownies in the world    best ever | 333281 |        40 |        10 |               9 |      138.4 |         3 |          10 | Healthy                 |
@@ -195,9 +198,13 @@ The topic of interest for my research is whether healthy and unhealthy recipes t
 To further investigate this question, I chose to run a **Permutation Test**.
 
 **Null Hypothesis**: Mean time of Healthy recipes = Mean time of Unhealthy recipes.
+
 **Alternate Hypothesis**: Mean time of Healthy recipes < Mean time of Unhealthy recipes.
+
 **Test Statistic**: Difference in Means (Unhealthy - Healthy)
+
 **Significance Level**: 0.05
+
 **Observed Test Statistic**: 12.827 minutes
 
 I chose to use a Permutation Test as I wanted to see if the two types of recipes could have possibly come from the same population. My alternative hypothesis was that Healthy Recipes actually took less time to make than Unhealthy Recipes, which meant people should be more inclined to make Healthy Recipes. The chosen test statistic was the difference in mean cooking times of Healthy and Unhealthy Recipes. Before I began the permutation test, I calculated the observed test statistic, which showed that Healthy Recipes took 12.8 minutes less to cook on average than Unhealthy Recipes. After that, I shuffled the `'health_classification'` labels 5000 times to generate 5000 differences in means between Health and Unhealthy Recipes. If the null hypothesis were true, the expected difference in times would be centered around 0.
@@ -221,7 +228,7 @@ The overall goal of my project is to investigate the misconception that healthy 
 
 **Type**: Multi-class Classification. I am performing multi-class classification because my target variable, representing cooking time, has been discretized into 10 distinct, ordered categories (deciles), which the model must predict.
 
-**Response Variable**: The continuous 'minutes' column was transformed using log(1 + minutes) and then discretized into a categorical target called `'time_classification'`. This target consists of 10 decile classes (labeled 0 through 9). I chose this variable because it transforms the highly skewed continuous time into a balanced, ordinal classification problem, making the task feasible for the models.
+**Response Variable**: The continuous 'minutes' column was transformed using `log(1 + minutes)` and then discretized into a categorical target called `'time_classification'`. This target consists of 10 decile classes (labeled 0 through 9). I chose this variable because it transforms the highly skewed continuous time into a balanced, ordinal classification problem, making the task feasible for the models.
 
 **Evaluation Metric**: I chose the Weighted F1-Score as the primary evaluation metric.
 
