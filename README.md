@@ -1,5 +1,6 @@
 # Can I get Seconds? 
 An analysis of the cooking time of meals versus their nutritonal content
+
 Author: Aryan Nath
 
 ## Introduction
@@ -47,6 +48,7 @@ The second dataset is the `Reviews` dataset, with 731927 rows and each row conta
 | `rating`    | Rating given           |
 | `review`    | Review text            |
 
+
 ## Data Cleaning and Exploratory Data Analysis
 
 The next step involved Data Clean-up and preprocessing. I began by left merging the Recipes and Reviews datasets on the `'id'` and `'recipe_id'` columns respectively. This matched each unique recipe with a unique review.
@@ -72,7 +74,6 @@ I then checked the data types of all the columns as well as any possible missing
 | `'date'`           | object      |
 | `'rating'`         | float64     |
 | `'review'`         | object      |
-
 
 The only column with missing values was `'description'`, but since it was not relevant to my exploration, the column was dropped.
 
@@ -146,24 +147,24 @@ For this analysis, I have looked at the distrbution of cooking time vs the numbe
 ### Interesting Aggregates
 I chose to investigate the trends in nutritional content as the cooking time of recipes increased. I created a dataframe that stored cleaned nutritional content values, with outliers defined to be outside of the 99th quantile. The nutrients were then aggreagated by mean and median and displayed in the pivot table below.
 
-|   minutes |   calories_mean |   calories_median |   total fat_mean |   total fat_median |   protein_mean |   protein_median |
-|----------:|----------------:|------------------:|-----------------:|-------------------:|---------------:|-----------------:|
-|         0 |         653.1   |            653.1  |         46       |               46   |      118       |            118   |
-|         1 |         174.955 |            133.9  |          7.78603 |                0   |        5.82533 |              0   |
-|         2 |         205.851 |            144.9  |          9.0884  |                0   |        6.82873 |              1   |
-|         3 |         244.072 |            169.35 |         11.7562  |                2   |        8.07231 |              2   |
-|         4 |         294.923 |            205.45 |         20.5489  |                7   |       14.688   |              9   |
-|         5 |         269.465 |            172.3  |         19.9864  |                6   |       10.8451  |              4   |
-|         6 |         267.396 |            178.25 |         18.8476  |                7   |       14.3994  |              7   |
-|         7 |         312.889 |            227.6  |         23.6853  |               12   |       19.1878  |             13   |
-|         8 |         295.253 |            208.3  |         22.8502  |               13   |       18.1223  |             11   |
-|         9 |         298.191 |            231.45 |         20.4364  |               16   |       24.3455  |             18.5 |
-|        10 |         296.825 |            199.95 |         24.886   |               13   |       15.7661  |              8   |
-...
-|       245 |         413.658 |            270.05 |         26.217   |               15   |       43.3491  |             31   |
-|       247 |         247.8   |            247.8  |         13.5     |               13.5 |       31.5     |             31.5 |
-|       248 |         525.85  |            370.1  |         39.1667  |               31   |       48.6667  |             40   |
-|       250 |         395.164 |            311.1  |         27.0734  |               15.5 |       39.4908  |             31   |
+| minutes   | calories_mean   | calories_median   | total fat_mean   | total fat_median   | protein_mean   | protein_median   |
+|:----------|:----------------|:------------------|:-----------------|:-------------------|:---------------|:-----------------|
+| 0         | 653.1           | 653.1             | 46.0             | 46.0               | 118.0          | 118.0            |
+| 1         | 174.955         | 133.9             | 7.78603          | 0.0                | 5.82533        | 0.0              |
+| 2         | 205.851         | 144.9             | 9.0884           | 0.0                | 6.82873        | 1.0              |
+| 3         | 244.072         | 169.35            | 11.7562          | 2.0                | 8.07231        | 2.0              |
+| 4         | 294.923         | 205.45            | 20.5489          | 7.0                | 14.688         | 9.0              |
+| 5         | 269.465         | 172.3             | 19.9864          | 6.0                | 10.8451        | 4.0              |
+| 6         | 267.396         | 178.25            | 18.8476          | 7.0                | 14.3994        | 7.0              |
+| 7         | 312.889         | 227.6             | 23.6853          | 12.0               | 19.1878        | 13.0             |
+| 8         | 295.253         | 208.3             | 22.8502          | 13.0               | 18.1223        | 11.0             |
+| 9         | 298.191         | 231.45            | 20.4364          | 16.0               | 24.3455        | 18.5             |
+| 10        | 296.825         | 199.95            | 24.886           | 13.0               | 15.7661        | 8.0              |
+| ...       | ...             | ...               | ...              | ...                | ...            | ...              |
+| 245       | 413.658         | 270.05            | 26.217           | 15.0               | 43.3491        | 31.0             |
+| 247       | 247.8           | 247.8             | 13.5             | 13.5               | 31.5           | 31.5             |
+| 248       | 525.85          | 370.1             | 39.1667          | 31.0               | 48.6667        | 40.0             |
+| 250       | 395.164         | 311.1             | 27.0734          | 15.5               | 39.4908        | 31.0             |
 
 As can be observed from the graphs below, the mean and median cooking times fluctuate a lot as the amount of cook time increases. However, it should be noted that the shapes of the mean and median curves appear to follow each other, suggesting a relation between the two.
 
